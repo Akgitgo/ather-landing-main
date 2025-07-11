@@ -105,12 +105,11 @@ export default function Home() {
         <div className="w-full md:w-1/3 max-w-xs md:max-w-sm rounded-2xl shadow-xl bg-white/90 p-2 md:p-4 mx-auto md:mx-0 order-1">
           <div className="relative w-full aspect-[9/16]">
             <video
-              src="/athervideo.mp4"
+              src="/assets/athervideo.mp4"
               autoPlay
               loop
               muted
               playsInline
-              preload="auto"
               className="rounded-2xl shadow-xl w-full h-auto object-contain bg-[#E6F3FF]"
               style={{ background: '#E6F3FF' }}
             >
