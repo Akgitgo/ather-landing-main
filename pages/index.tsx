@@ -42,6 +42,8 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
       setFullName('');
       setPhone('');
       setLocation('');
+      localStorage.setItem("testDriveSubmitted", "true");
+      onClose();
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("❌ An unexpected error occurred.");
@@ -76,8 +78,10 @@ export default function Home() {
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (!showModal) {
-      timer = setTimeout(() => setShowModal(true), 6000);
+    if (!localStorage.getItem("testDriveSubmitted")) {
+      if (!showModal) {
+        timer = setTimeout(() => setShowModal(true), 6000);
+      }
     }
     return () => clearTimeout(timer);
   }, [showModal]);
@@ -117,7 +121,7 @@ export default function Home() {
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-6 order-3 md:order-2">
           <div className="flex flex-col md:flex-row gap-6 w-full justify-center">
             {/* RIZTA */}
-            <motion.div
+          <motion.div
               className="flex-1 bg-[#e6f3ff] rounded-2xl shadow-lg p-6 flex flex-col items-center font-sans"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -149,7 +153,7 @@ export default function Home() {
                 <li>Certified 150+ km range with fast charging via Ather Grid</li>
                 <li>7” TFT dashboard with Google Maps navigation built-in</li>
               </ul>
-            </motion.div>
+          </motion.div>
           </div>
         </div>
         {/* Know More Button (right on desktop, below on mobile) */}
