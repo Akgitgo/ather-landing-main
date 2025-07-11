@@ -23,15 +23,34 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
     setPhone(val);
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (phone.length !== 10) {
-      setError('Please enter a valid 10-digit phone number.');
-      return;
+
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbxRZjDsSYwJsx5hozOn3Je5BI4PLpnBv8ZoIVKi_UTHD-cijNB-BU-x22c8NrZJfVW7eQ/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName,
+          phone,
+          location,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("✅ Test drive booked successfully!");
+        setFullName('');
+        setPhone('');
+        setLocation('');
+      } else {
+        alert("❌ Submission failed. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("❌ An unexpected error occurred.");
     }
-    setError('');
-    // Submit logic here
-    onClose();
   };
   if (!open) return null;
   return (
