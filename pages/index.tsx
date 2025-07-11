@@ -17,10 +17,12 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
       setError('');
     }
   }, [open]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handlePhoneChange = (e: any) => {
     const val = e.target.value.replace(/[^\d]/g, '').slice(0, 10);
     setPhone(val);
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (phone.length !== 10) {
