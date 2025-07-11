@@ -10,9 +10,7 @@ export default function Document() {
       <body className="antialiased">
         <Main />
         <NextScript />
-        {/* AOS Animation JS */}
-        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-        <script dangerouslySetInnerHTML={{__html: `AOS.init({ once: true });`}} />
+        {/* AOS is initialized in _app.tsx via useEffect. Removed synchronous script tags for Vercel ESLint compliance. */}
       </body>
     </Html>
   );
