@@ -103,18 +103,16 @@ export default function Home() {
       <div className="flex flex-col md:flex-row w-full max-w-screen-xl mx-auto px-4 py-8 md:py-12 gap-8 items-center justify-center">
         {/* Video Section (left) */}
         <div className="w-full md:w-1/3 max-w-xs md:max-w-sm rounded-2xl shadow-xl bg-white/90 p-2 md:p-4 mx-auto md:mx-0 order-1">
-          <div className="relative w-full aspect-[9/16]">
+          <div className="relative w-full">
             <video
-              src="/assets/athervideo.mp4"
+              src="/athervideo.mp4"
               autoPlay
               loop
               muted
               playsInline
-              className="rounded-2xl shadow-xl w-full h-auto object-contain bg-[#E6F3FF]"
-              style={{ background: '#E6F3FF' }}
-            >
-              Your browser does not support the video tag.
-            </video>
+              preload="auto"
+              className="w-full h-auto max-h-[500px] rounded-2xl shadow-xl object-cover"
+            />
           </div>
         </div>
         {/* Model Specs (center) */}
