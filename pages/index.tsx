@@ -106,11 +106,12 @@ export default function Home() {
           <div className="relative w-full aspect-[9/16]">
             <video
               src="/athervideo.mp4"
-              className="absolute top-0 left-0 w-full h-full object-contain rounded-xl"
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
+              className="rounded-2xl shadow-xl w-full h-auto object-contain bg-[#E6F3FF]"
               style={{ background: '#E6F3FF' }}
             >
               Your browser does not support the video tag.
