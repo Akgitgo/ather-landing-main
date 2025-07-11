@@ -99,24 +99,27 @@ export default function Home() {
       </div>
       <div className="h-14" /> {/* Spacer for fixed navbar */}
 
-      {/* Main Content Row: Video | Model Specs | Know More (desktop) */}
-      <div className="flex flex-col md:flex-row w-full max-w-screen-xl mx-auto px-4 py-8 md:py-12 gap-8 items-center justify-center">
+      {/* Hero Row: Video | Model Cards | Know More */}
+      <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-screen-xl mx-auto px-4 py-8 md:py-12 gap-6 md:gap-8">
         {/* Video Section (left) */}
-        <div className="w-full max-w-screen-lg mx-auto px-4 order-1">
-          <video
-            src="/athervideo.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            className="w-full h-auto rounded-xl shadow-lg object-contain sm:max-h-[500px] md:max-h-[600px]"
-          />
+        <div className="w-full md:w-1/3 flex-shrink-0 flex items-center justify-center">
+          <div className="w-full max-w-6xl mx-auto px-4">
+            <video
+              src="/athervideo.mp4"
+              autoPlay
+              muted
+              playsInline
+              loop
+              preload="auto"
+              className="w-full h-auto max-h-[600px] object-contain rounded-xl shadow-lg"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
-        {/* Model Specs (center) */}
-        <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-6 order-3 md:order-2">
-          <div className="flex flex-col md:flex-row gap-6 w-full justify-center">
-            {/* RIZTA */}
+        {/* Model Cards (center) */}
+        <div className="w-full md:w-1/2 flex flex-col md:flex-row items-center justify-center gap-6">
+          {/* RIZTA */}
           <motion.div
               className="flex-1 bg-[#e6f3ff] rounded-2xl shadow-lg p-6 flex flex-col items-center font-sans"
               initial={{ opacity: 0, y: 40 }}
@@ -151,9 +154,8 @@ export default function Home() {
               </ul>
           </motion.div>
           </div>
-        </div>
-        {/* Know More Button (right on desktop, below on mobile) */}
-        <div className="w-full md:w-1/6 flex md:items-start items-center md:justify-end justify-center order-2 md:order-3 mt-6 md:mt-0">
+        {/* Know More Button (right) */}
+        <div className="w-full md:w-1/6 flex items-center justify-center md:justify-end mt-6 md:mt-0">
           <a
             href="tel:8712600675"
             className="w-48 py-2 px-4 rounded-lg bg-blue-200 text-blue-900 font-semibold text-base shadow-lg hover:bg-blue-300 hover:scale-105 transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 active:shadow-2xl active:bg-blue-300 font-sans"
