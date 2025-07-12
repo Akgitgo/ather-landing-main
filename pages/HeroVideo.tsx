@@ -20,12 +20,12 @@ export default function HeroVideo() {
             hls.on(Hls.Events.MANIFEST_PARSED, async () => {
               try {
                 await video.play();
-              } catch (error) {
+              } catch {
                 console.log("Autoplay failed, user interaction required");
               }
             });
           }
-        } catch (error) {
+        } catch {
           console.log("Autoplay failed, user interaction required");
         }
       };
