@@ -9,6 +9,8 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
   const [phone, setPhone] = useState('');
   const [location, setLocation] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   // Reset fields when modal opens
   useEffect(() => {
     if (open) {
@@ -16,16 +18,22 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
       setPhone('');
       setLocation('');
       setError('');
+      setIsSubmitting(false);
     }
   }, [open]);
+  
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handlePhoneChange = (e: any) => {
     const val = e.target.value.replace(/[^\d]/g, '').slice(0, 10);
     setPhone(val);
   };
+  
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+    
     try {
       await fetch("https://script.google.com/macros/s/AKfycbxRZjDsSYwJsx5hozOn3Je5BI4PLpnBv8ZoIVKi_UTHD-cijNB-BU-x22c8NrZJfVW7eQ/exec", {
         method: "POST",
@@ -39,6 +47,10 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
           location,
         }),
       });
+      
+      // Simulate a brief delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       alert("✅ Test drive booked successfully!");
       setFullName('');
       setPhone('');
@@ -47,10 +59,14 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
       onClose();
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("❌ An unexpected error occurred.");
+      setError("❌ An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
+  
   if (!open) return null;
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl p-6 w-11/12 max-w-sm relative">
@@ -58,15 +74,60 @@ function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => v
         <h2 className="text-xl font-bold mb-4 text-blue-700">Book Test Drive</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <label className="text-sm font-medium text-gray-700" htmlFor="fullName">Full Name</label>
-          <input id="fullName" className="border border-black rounded px-3 py-2 bg-white text-black font-semibold placeholder-gray-400" placeholder="Enter your full name" value={fullName} onChange={e => setFullName(e.target.value)} autoComplete="off" />
+          <input 
+            id="fullName" 
+            className="border border-black rounded px-3 py-2 bg-white text-black font-semibold placeholder-gray-400" 
+            placeholder="Enter your full name" 
+            value={fullName} 
+            onChange={e => setFullName(e.target.value)} 
+            autoComplete="off"
+            disabled={isSubmitting}
+          />
 
           <label className="text-sm font-medium text-gray-700" htmlFor="phone">Phone Number</label>
-          <input id="phone" className="border border-black rounded px-3 py-2 bg-white text-black font-semibold placeholder-gray-400" placeholder="Enter your 10-digit phone number" value={phone} onChange={handlePhoneChange} maxLength={10} inputMode="numeric" autoComplete="off" />
+          <input 
+            id="phone" 
+            className="border border-black rounded px-3 py-2 bg-white text-black font-semibold placeholder-gray-400" 
+            placeholder="Enter your 10-digit phone number" 
+            value={phone} 
+            onChange={handlePhoneChange} 
+            maxLength={10} 
+            inputMode="numeric" 
+            autoComplete="off"
+            disabled={isSubmitting}
+          />
 
           <label className="text-sm font-medium text-gray-700" htmlFor="location">Location</label>
-          <input id="location" className="border border-black rounded px-3 py-2 bg-white text-black font-semibold placeholder-gray-400" placeholder="Enter your location" value={location} onChange={e => setLocation(e.target.value)} autoComplete="off" />
+          <input 
+            id="location" 
+            className="border border-black rounded px-3 py-2 bg-white text-black font-semibold placeholder-gray-400" 
+            placeholder="Enter your location" 
+            value={location} 
+            onChange={e => setLocation(e.target.value)} 
+            autoComplete="off"
+            disabled={isSubmitting}
+          />
+          
           {error && <div className="text-red-500 text-sm">{error}</div>}
-          <button type="submit" className="bg-blue-600 text-white rounded py-2 font-semibold hover:bg-blue-700 transition">Confirm Test Ride</button>
+          
+          <button 
+            type="submit" 
+            className={`rounded py-2 font-semibold transition ${
+              isSubmitting 
+                ? 'bg-gray-400 text-white cursor-not-allowed' 
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+            }`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                Please wait, your test ride is being registered...
+              </div>
+            ) : (
+              'Confirm Test Ride'
+            )}
+          </button>
         </form>
       </div>
     </div>
