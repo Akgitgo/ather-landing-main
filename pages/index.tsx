@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import HeroVideo from "./HeroVideo";
 
 // Simple Book Test Drive Popup Form
 function BookTestDriveModal({ open, onClose }: { open: boolean, onClose: () => void }) {
@@ -104,17 +105,7 @@ export default function Home() {
         {/* Video Section (left) */}
         <div className="w-full md:w-1/3 flex-shrink-0 flex items-center justify-center">
           <div className="w-full max-w-6xl mx-auto px-4">
-            <video
-              src="/athervideo.mp4"
-              autoPlay
-              muted
-              playsInline
-              loop
-              preload="auto"
-              className="w-full h-auto max-h-[600px] object-contain rounded-xl shadow-lg"
-            >
-              Your browser does not support the video tag.
-            </video>
+            <HeroVideo />
           </div>
         </div>
         {/* Model Cards (center) */}
